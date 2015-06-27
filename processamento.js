@@ -18,3 +18,4 @@ http.get(download, function(res) {
 		leituraSync(arquivo);
 	});
 });
+
