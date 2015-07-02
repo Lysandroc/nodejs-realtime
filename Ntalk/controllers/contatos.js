@@ -12,24 +12,26 @@ module.exports = function(app) {
 		
 		show: function(req, res) {
 			var id = req.params.id
-			  , contato = req.session.usuario.contato[id]
+			  , contato = req.session.usuario.contatos[id]
 			  , params = {contato: contato, id: id};  
 			
+			console.log(params);
 			res.render('contatos/show', params);
 		},
 		
 		create: function(req, res) {
-			var contato = req.body.contato
-			, usuario = req.session.usuario;
+			var contato = req.body.contato;
 			
-			usuario.contatos.push(contato);
+			req.session.usuario.contatos.push(contato);
+			
+			console.log(req.session.usuario);
 			res.redirect('/contatos');
 		},
 	
 		edit: function(req,res) {
 			var id = req.params.id
 			  , usuario = req.session.usuario
-			  , contato = req.contatos[id]
+			  , contato = usuario.contatos[id]
 			  , params = {  usuario: usuario, 
 			  			 	contato: contato, 
 							id: id };
@@ -50,6 +52,7 @@ module.exports = function(app) {
 			var usuario = req.session.usuario
 			  , id = req.params.id;
 		  	
+			console.log('chegou no destroy');  
 			usuario.contatos.splice(id, 1);
 			res.redirect('/contatos');
 		}
